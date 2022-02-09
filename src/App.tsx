@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 
-const hoge = 'hoge';
-
 type FeeClassification = {
   name: string,
   description :string,
@@ -56,19 +54,54 @@ class Summary extends React.Component {
 }
 
 class AdmissionFeeCalculator extends React.Component {
-  private detail: DetailProps = {
-    classification: {
-      name: '大人',
-      description: '',
-      unitPrice: 1000,
-      numOfPeople: 0,
-      totalPrice: 0
-    }
-  };
+  private details: DetailProps[] = [
+    {
+      classification: {
+        name: '大人',
+        description: '',
+        unitPrice: 1000,
+        numOfPeople: 0,
+        totalPrice: 0
+      }
+    },
+    {
+      classification: {
+        name: '学生',
+        description: '中学生・高校生',
+        unitPrice: 700,
+        numOfPeople: 0,
+        totalPrice: 0,
+      }
+    },
+    {
+      classification: {
+        name: '子ども',
+        description: '小学生',
+        unitPrice: 300,
+        numOfPeople: 0,
+        totalPrice: 0,
+      }
+    },
+    {
+      classification: {
+        name: '幼児',
+        description: '未就学',
+        unitPrice: 0,
+        numOfPeople: 0,
+        totalPrice: 0,
+      }
+    },
+  ];
   render() {
+    const detailsJsx = this.details.map((fc, idx) => {
+      return (
+        <Detail key={idx.toString()} classification={fc.classification} />
+      );
+    });
+
     return (
       <>
-        <Detail classification={this.detail.classification}/>
+        {detailsJsx}
         <Summary />
       </>
     );
